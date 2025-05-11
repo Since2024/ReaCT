@@ -4,11 +4,34 @@ import { FcAbout } from "react-icons/fc";
 import { TiContacts } from "react-icons/ti";
 import { GrServices } from "react-icons/gr";
 import { GiEagleEmblem } from "react-icons/gi";
-import { Link, useLocation } from 'react-router-dom'; // Add useLocation
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const location = useLocation();
   const isAboutPage = location.pathname === '/about';
+
+  const navData = [
+    {
+      icons: <IoIosHome />,
+      title: "Home",
+      path: "/"
+    },
+    {
+      icons: <FcAbout />,
+      title: "About",
+      path: "/about"
+    },
+    {
+      icons: <TiContacts />,
+      title: "Contact",
+      path: "/contact"
+    },
+    {
+      icons: <GrServices />,
+      title: "Skills",
+      path: "/skills"
+    },
+  ];
 
   return (
     <nav
@@ -19,29 +42,14 @@ const Navbar = () => {
         <GiEagleEmblem style={{ fontSize: '70px' }} /> HAsaN GaHA
       </div>
 
-      <ul className='flex gap-6 items-center'>
-        <li>
-          <Link
-            to="/"
-            className="flex items-center gap-1 font-semibold hover:text-red-600 hover:bg-gray-700 px-4 py-2 rounded transition duration-300"
-          >
-            <IoIosHome /> Home
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/about"
-            className="flex items-center gap-1 font-semibold hover:text-yellow-500 hover:bg-gray-800 px-4 py-2 rounded transition duration-300"
-          >
-            <FcAbout /> About
-          </Link>
-        </li>
-        <li className="flex items-center gap-1 font-semibold hover:text-red-600 hover:bg-gray-700 px-4 py-2 rounded transition duration-300">
-          <TiContacts /> Contact
-        </li>
-        <li className="flex items-center gap-1 font-semibold hover:text-red-600 hover:bg-gray-700 px-4 py-2 rounded transition duration-300">
-          <GrServices /> Services
-        </li>
+      <ul className='flex gap-4 items-center'>
+        {navData.map((item, index) => (
+          <li key={index} className='flex items-center gap-2 font-semibold hover:text-yellow-500 hover:bg-gray-800 px-4 py-2 rounded transition duration-300'>
+            <Link to={item.path} className="flex items-center gap-1">
+              {item.icons} {item.title}
+            </Link>
+          </li>
+        ))}
       </ul>
     </nav>
   );
